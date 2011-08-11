@@ -341,12 +341,12 @@
 		7F8D65B813F082E6001AF4F3 /* CXMLNode_XPathExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLNode_XPathExtensions.m; path = ../../Library/TouchXML/CXMLNode_XPathExtensions.m; sourceTree = "<group>"; };
 		7F8D65B913F082E6001AF4F3 /* CXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLNode.h; path = ../../Library/TouchXML/CXMLNode.h; sourceTree = "<group>"; };
 		7F8D65BA13F082E6001AF4F3 /* CXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLNode.m; path = ../../Library/TouchXML/CXMLNode.m; sourceTree = "<group>"; };
-		7F8D65BB13F082E6001AF4F3 /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchXML.h; path = ../Library/TouchXML/TouchXML.h; sourceTree = "<group>"; };
-		7F8D65C213F08498001AF4F3 /* TouchJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchJson.h; path = ../Library/TouchJSON/Source/JSON/TouchJson.h; sourceTree = "<group>"; };
 		7FB3336913F468060014C7FE /* DSActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DSActivityView.h; path = Library/DSActivtyView/DSActivityView.h; sourceTree = SOURCE_ROOT; };
 		7FB3336A13F468060014C7FE /* DSActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DSActivityView.m; path = Library/DSActivtyView/DSActivityView.m; sourceTree = SOURCE_ROOT; };
 		7FB3336C13F468140014C7FE /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCarousel.h; path = Library/iCarousel/iCarousel.h; sourceTree = SOURCE_ROOT; };
 		7FB3336D13F468140014C7FE /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = Library/iCarousel/iCarousel.m; sourceTree = SOURCE_ROOT; };
+		7FB3337313F46D9C0014C7FE /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchXML.h; path = UkuleleDazz/TouchXML.h; sourceTree = "<group>"; };
+		7FB3337413F46D9C0014C7FE /* TouchJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchJson.h; path = UkuleleDazz/TouchJson.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -542,8 +542,8 @@
 		7F6E836813F078B40067122D = {
 			isa = PBXGroup;
 			children = (
-				7F8D65C213F08498001AF4F3 /* TouchJson.h */,
-				7F8D65BB13F082E6001AF4F3 /* TouchXML.h */,
+				7FB3337313F46D9C0014C7FE /* TouchXML.h */,
+				7FB3337413F46D9C0014C7FE /* TouchJson.h */,
 				7F44154313F09A8800819230 /* Default@2x.png */,
 				7F44154113F09A7D00819230 /* Default.png */,
 				7F44153F13F099F800819230 /* icon@2x.png */,
