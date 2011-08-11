@@ -1,0 +1,30 @@
+Success:
+2011-08-05 10:38:09.749 UkuleleDazz[1057:707] Starting -[UkuZooAppDelegate addActivityIndicator:label:images:]: currentActivityView retainCount: 0
+2011-08-05 10:38:09.756 UkuleleDazz[1057:707] Ending -[UkuZooAppDelegate addActivityIndicator:label:images:]: currentActivityView retainCount: 2
+2011-08-05 10:38:09.907 UkuleleDazz[1057:170b]  -[UkuZooAppDelegate getZooSearch]: - started calling removeActivityIndicator
+2011-08-05 10:38:09.914 UkuleleDazz[1057:170b] Starting -[UkuZooAppDelegate removeActivityIndicator]: currentActivityView retainCount: 2
+2011-08-05 10:38:09.919 UkuleleDazz[1057:170b] Starting +[DSBezelActivityView removeViewAnimated:]: currentActivityView retainCount: 2
+2011-08-05 10:38:09.927 UkuleleDazz[1057:170b] Starting -[DSBezelActivityView animateRemove]: currentActivityView retainCount: 2
+2011-08-05 10:38:09.930 UkuleleDazz[1057:170b] Ending -[DSBezelActivityView animateRemove]: currentActivityView retainCount: 3
+2011-08-05 10:38:09.932 UkuleleDazz[1057:170b] Ending +[DSBezelActivityView removeViewAnimated:]: currentActivityView retainCount: 3
+2011-08-05 10:38:09.934 UkuleleDazz[1057:170b] Ending -[UkuZooAppDelegate removeActivityIndicator]: currentActivityView retainCount: 3
+2011-08-05 10:38:09.937 UkuleleDazz[1057:170b]  -[UkuZooAppDelegate getZooSearch]: - finished calling removeActivityIndicator
+2011-08-05 10:38:09.941 UkuleleDazz[1057:170b]  -[UkuZooAppDelegate getZooSearch]: - finished calling [pool drain]
+2011-08-05 10:38:10.146 UkuleleDazz[1057:707] Ending +[DSActivityView removeView]: Begin - retainCount: 3
+2011-08-05 10:38:10.151 UkuleleDazz[1057:707] Ending +[DSActivityView removeView]: End - retainCount: 0
+
+Failure:
+2011-08-05 10:38:11.655 UkuleleDazz[1057:707] Starting -[UkuZooAppDelegate addActivityIndicator:label:images:]: currentActivityView retainCount: 0
+2011-08-05 10:38:11.663 UkuleleDazz[1057:707] Ending -[UkuZooAppDelegate addActivityIndicator:label:images:]: currentActivityView retainCount: 2
+2011-08-05 10:38:11.900 UkuleleDazz[1057:707]  -[UkuZooAppDelegate pushZooCollectionView:]: - calling pushViewController
+2011-08-05 10:38:11.900 UkuleleDazz[1057:170f]  -[UkuZooAppDelegate getZooItemsFromSearch:]: - started calling removeActivityIndicator
+2011-08-05 10:38:11.909 UkuleleDazz[1057:170f] Starting -[UkuZooAppDelegate removeActivityIndicator]: currentActivityView retainCount: 2
+2011-08-05 10:38:11.911 UkuleleDazz[1057:707]  -[UkuZooAppDelegate pushZooCollectionView:]: - finished calling pushViewController
+2011-08-05 10:38:11.912 UkuleleDazz[1057:170f] Starting +[DSBezelActivityView removeViewAnimated:]: currentActivityView retainCount: 2
+2011-08-05 10:38:11.916 UkuleleDazz[1057:170f] Starting -[DSBezelActivityView animateRemove]: currentActivityView retainCount: 2
+2011-08-05 10:38:11.920 UkuleleDazz[1057:170f] Ending -[DSBezelActivityView animateRemove]: currentActivityView retainCount: 3
+2011-08-05 10:38:11.926 UkuleleDazz[1057:170f] Ending +[DSBezelActivityView removeViewAnimated:]: currentActivityView retainCount: 3
+2011-08-05 10:38:11.929 UkuleleDazz[1057:170f] Ending -[UkuZooAppDelegate removeActivityIndicator]: currentActivityView retainCount: 3
+2011-08-05 10:38:11.932 UkuleleDazz[1057:170f]  -[UkuZooAppDelegate getZooItemsFromSearch:]: - finished calling removeActivityIndicator
+2011-08-05 10:38:11.950 UkuleleDazz[1057:170f]  -[UkuZooAppDelegate getZooItemsFromSearch:]: - finished calling [pool drain]
+2011-08-05 10:38:12.027 UkuleleDazz[1057:707] *** -[UIViewAnimationState release]: message sent to deallocated instance 0x4f6c60";
