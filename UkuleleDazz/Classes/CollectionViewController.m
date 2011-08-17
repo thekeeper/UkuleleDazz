@@ -102,18 +102,12 @@
 	ItemCell *itemCell = (ItemCell *)[tableView dequeueReusableCellWithIdentifier:@"ItemCell"];
 	if (itemCell == nil) {
 		itemCell = [[[ItemCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"ItemCell"] autorelease];
-		
-//		UIButton* accessoryButton = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
-//		itemCell.editingAccessoryType = UITableViewCellAccessoryNone;
-//		itemCell.accessoryView = accessoryButton;
         
         [itemCell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
-//        [itemCell setAccessoryAction:@selector(editSubject:)];
-//        [itemCell setTarget:self];
 	}
 	
 	// Since this method is called every time the display scrolls (rather than just once in an ordered way) we will have
-	// to access the dazzItems array in a random way.  That's ok, we have the technology :-)
+	// to access the dazzItems array in a random way.  That's ok, we have the technology
 	NSInteger startIndex = [[sortFieldSectionTitleIndexes objectAtIndex:indexPath.section] integerValue];
 	NSInteger collectionIndex = startIndex + indexPath.row;
 	

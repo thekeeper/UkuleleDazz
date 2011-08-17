@@ -72,7 +72,7 @@
 			
 - (void)setThumbnailImageFromPath: (NSString *)path;
 - (bool)setDetailImageFromPath: (NSString *)path;
-- (UIImage *)orientResizeAndCrop:(UIImage *)originalImage toSize:(CGSize)croppedSize toOrientation:(UIImageOrientation)orientation;
+- (UIImage *)orientResizeAndCrop:(UIImage *)originalImage toSize:(CGSize)croppedSize;
 
 - (Comment *)commentForRow: (NSInteger)row;
 

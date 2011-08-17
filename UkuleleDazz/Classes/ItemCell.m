@@ -160,7 +160,7 @@
     [super layoutSubviews];
     CGRect contentRect = self.contentView.bounds;
 	
-	// In this example we will never be editing, but this illustrates the appropriate pattern
+	// In this case we will never be editing, but this illustrates the appropriate pattern
     if (!self.editing) {
 		
 		CGFloat boundsX = contentRect.origin.x;
@@ -181,8 +181,8 @@
 		frame = [imageView frame];
 		frame.origin.x = boundsX + 10;
 		frame.origin.y = UPPER_ROW_TOP - 2;
-		frame.size.height = 35;
-		frame.size.width = 43;
+		frame.size.height = [imageView bounds].size.height;
+		frame.size.width = [imageView bounds].size.width;
  		imageView.frame = frame;
 	}
 }
@@ -225,6 +225,8 @@
 	}
 	
     if (dazzItem.thumbnailImage) {
+        NSLog(@"Inside %s: dazzItme.thumbnailImage retainCount: %u", __FUNCTION__, dazzItem.thumbnailImage.retainCount);
+
         imageView.image = dazzItem.thumbnailImage;
     }
 	

@@ -146,6 +146,7 @@
 		7F8D65C113F082E6001AF4F3 /* CXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D65BA13F082E6001AF4F3 /* CXMLNode.m */; };
 		7FB3336B13F468060014C7FE /* DSActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB3336A13F468060014C7FE /* DSActivityView.m */; };
 		7FB3336E13F468140014C7FE /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB3336D13F468140014C7FE /* iCarousel.m */; };
+		7FC1236713FB359D0048E99D /* Entitlements.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 7FC1236613FB359D0048E99D /* Entitlements.entitlements */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -347,6 +348,7 @@
 		7FB3336D13F468140014C7FE /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = Library/iCarousel/iCarousel.m; sourceTree = SOURCE_ROOT; };
 		7FB3337313F46D9C0014C7FE /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchXML.h; path = UkuleleDazz/TouchXML.h; sourceTree = "<group>"; };
 		7FB3337413F46D9C0014C7FE /* TouchJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchJson.h; path = UkuleleDazz/TouchJson.h; sourceTree = "<group>"; };
+		7FC1236613FB359D0048E99D /* Entitlements.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Entitlements.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -542,6 +544,7 @@
 		7F6E836813F078B40067122D = {
 			isa = PBXGroup;
 			children = (
+				7FC1236613FB359D0048E99D /* Entitlements.entitlements */,
 				7FB3337313F46D9C0014C7FE /* TouchXML.h */,
 				7FB3337413F46D9C0014C7FE /* TouchJson.h */,
 				7F44154313F09A8800819230 /* Default@2x.png */,
@@ -867,6 +870,7 @@
 				7F44154013F099F800819230 /* icon@2x.png in Resources */,
 				7F44154213F09A7D00819230 /* Default.png in Resources */,
 				7F44154413F09A8800819230 /* Default@2x.png in Resources */,
+				7FC1236713FB359D0048E99D /* Entitlements.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,7 +1038,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
 			};
@@ -1053,7 +1057,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
@@ -1064,12 +1068,14 @@
 		7F6E83B213F078B70067122D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Terry Tucker (GU6V56B8Q8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UkuleleDazz/UkuleleDazz-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "UkuleleDazz/UkuleleDazz-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6512D85F-8D84-48B2-932A-C6F796FD08FB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1077,12 +1083,14 @@
 		7F6E83B313F078B70067122D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Terry Tucker";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UkuleleDazz/UkuleleDazz-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "UkuleleDazz/UkuleleDazz-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D7C0777F-C944-457F-B392-22624B7A8CC3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1121,6 +1129,60 @@
 			};
 			name = Release;
 		};
+		7FC1236813FB35EC0048E99D /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-lxml2";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
+		7FC1236913FB35EC0048E99D /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = Entitlements.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Terry Tucker";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UkuleleDazz/UkuleleDazz-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				INFOPLIST_FILE = "UkuleleDazz/UkuleleDazz-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2892430E-ADBA-4510-9675-DBA69AF174F4";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
+		7FC1236A13FB35EC0048E99D /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/UkuleleDazz.app/UkuleleDazz";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UkuleleDazz/UkuleleDazz-Prefix.pch";
+				INFOPLIST_FILE = "UkuleleDazzTests/UkuleleDazzTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Ad Hoc";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1129,6 +1191,7 @@
 			buildConfigurations = (
 				7F6E83AF13F078B70067122D /* Debug */,
 				7F6E83B013F078B70067122D /* Release */,
+				7FC1236813FB35EC0048E99D /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1138,6 +1201,7 @@
 			buildConfigurations = (
 				7F6E83B213F078B70067122D /* Debug */,
 				7F6E83B313F078B70067122D /* Release */,
+				7FC1236913FB35EC0048E99D /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1147,6 +1211,7 @@
 			buildConfigurations = (
 				7F6E83B513F078B70067122D /* Debug */,
 				7F6E83B613F078B70067122D /* Release */,
+				7FC1236A13FB35EC0048E99D /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

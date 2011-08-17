@@ -13,6 +13,8 @@
 #import "TouchXML.h"
 #import "CXMLNode_PrivateExtensions.h"
 
+#define THUMBNAIL_WIDTH 43
+#define THUMBNAIL_HEIGHT 35
 
 // Private interface for DazzItem - internal only methods.
 @interface DazzItem (Private)
@@ -676,7 +678,22 @@
 	
 	NSURL *url = [NSURL URLWithString:fullPath];
 	NSData *imageData = [NSData dataWithContentsOfURL:url];
-    thumbnailImage = [[UIImage alloc] initWithData:imageData]; //[[UIImage imageWithData: imageData] autorelease];
+    UIImage *image = [[UIImage alloc] initWithData:imageData]; //    thumbnailImage = [[UIImage alloc] initWithData:imageData];
+    
+    NSLog(@"image (%f, %f)", [image size].width, [image size].height);
+    
+
+    CGSize finalSize = CGSizeMake(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+    
+    // Check for retina display
+    if ( [[[UIDevice currentDevice] systemVersion] intValue] >= 4 && [[UIScreen mainScreen] scale] == 2.0 ) {
+        finalSize = CGSizeMake(THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2);
+    }
+    
+    thumbnailImage = [self orientResizeAndCrop:image toSize: finalSize];
+    [image release];
+    
+    NSLog(@"thumbnailImage (%f, %f)", [thumbnailImage size].width, [thumbnailImage size].height);
     
     if ( [[[UIDevice currentDevice] systemVersion] intValue] >= 4 && [[UIScreen mainScreen] scale] == 2.0 ) {
         CGImageRef ref = [thumbnailImage CGImage];
@@ -712,30 +729,140 @@
 	return isImageFound;
 }
 
-- (UIImage *)orientResizeAndCrop:(UIImage *)originalImage toSize:(CGSize)croppedSize toOrientation:(UIImageOrientation)orientation {
+// WARNING!! This method assumes the the croppedSize is in Landscape mode.
+- (UIImage *)orientResizeAndCrop:(UIImage *)originalImage toSize:(CGSize)croppedSize {
     
-    // First, rotate 90 degrees, if necessary (don't worry about Left vs Right or Up vs Down, just aspect ratio)
+    // Get dimensions of original image	
+	CGImageRef originalImageRef = originalImage.CGImage;	
+	CGFloat originalWidth = CGImageGetWidth(originalImageRef);
+	CGFloat originalHeight = CGImageGetHeight(originalImageRef);
     
-    // Second, resize to narrow dimension for orientation, width for Up or Down, height for Left or Right
+    // This will be set to YES if the image is not the same orientation (landscape vs portrait) as the croppedSize
+    bool doRotate = NO;
+	
+	CGAffineTransform transform = CGAffineTransformIdentity;
+	CGRect bounds = CGRectMake(0, 0, originalWidth, originalHeight);
     
-    // Third, crop the other dimesion, if required (the image could resize perfectly above)
+    // What we want is to be sure a reduced and cropped image will fill the entire croppedImage rect
+    // So we choose the correct dimension to get our ratio and cropthe other dimension 
+    // If necessary we will rotate so that the image is in landscape perspective
+    CGFloat originalAspectRatio = originalWidth / originalHeight;
+    CGFloat croppedAspectRatio =  croppedSize.width / croppedSize.height;
+    CGFloat scaleRatio = 0.0;
+    bool cropHeight = NO;
     
-    
-    // Get size of current image
-    CGSize originalSize = [originalImage size];
-    
-    // Create rectangle that represents a cropped image  
-    // from the middle of the existing image
-    CGRect rect = CGRectMake( (originalSize.width - croppedSize.width) / 2, (originalSize.height - croppedSize.height) / 2 , croppedSize.width, croppedSize.height);
-    
-    // Create bitmap image from original image data,
-    // using rectangle to specify desired crop area
-    CGImageRef imageRef = CGImageCreateWithImageInRect([originalImage CGImage], rect);
-    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef]; 
-    CGImageRelease(imageRef);
-    
-    return croppedImage;
+    // Original is in landscape mode
+    if (originalAspectRatio > 1) {
+        scaleRatio = croppedSize.height / originalHeight;
+        bounds.size.width = originalWidth * scaleRatio;
+        bounds.size.height = croppedSize.height;
+        
+        // This is where we ensure that the proper ratio and crop dimensions are used
+        if (originalAspectRatio < croppedAspectRatio) {
+            scaleRatio = croppedSize.width / originalWidth;
+            bounds.size.width = croppedSize.width;
+            bounds.size.height = originalHeight * scaleRatio;
+            cropHeight = YES;
+        }
+    }
+    // Original is in portrait mode and must be rotated
+    else {
+        originalAspectRatio = originalHeight / originalWidth;
+        scaleRatio = croppedSize.height / originalWidth;
+        bounds.size.width = originalHeight * scaleRatio;
+        bounds.size.height = croppedSize.height;
+        
+        // This is where we ensure that the proper ratio and crop dimensions are used to fill the smaller rectangle
+        if (originalAspectRatio < croppedAspectRatio) {
+            scaleRatio = croppedSize.width / originalHeight;
+            bounds.size.width = croppedSize.width;
+            bounds.size.height = originalWidth * scaleRatio;
+            cropHeight = YES;
+        }
+        doRotate = YES;
+    }
+	
+	UIImageOrientation orient = originalImage.imageOrientation;
 
+    CGFloat x = 0.0;
+    CGFloat y = 0.0;
+    
+    if (doRotate) {
+        transform = CGAffineTransformMakeTranslation(0.0, originalWidth);
+        transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
+        
+        // I can't explaing this, but it works!
+        x = -(originalHeight - originalWidth); //-(originalWidth) * 0.5);
+    }
+	
+	UIGraphicsBeginImageContext(bounds.size);
+	
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	if (orient == UIImageOrientationRight || orient == UIImageOrientationLeft) {
+		CGContextScaleCTM(context, -scaleRatio, scaleRatio);
+		CGContextTranslateCTM(context, -originalHeight, 0);
+	}
+	else {
+		CGContextScaleCTM(context, scaleRatio, -scaleRatio);
+		CGContextTranslateCTM(context, 0, -originalHeight);
+	}
+	
+	CGContextConcatCTM(context, transform);
+	CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(x, y, originalWidth, originalHeight), originalImageRef);
+	UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+    
+//    return [scaledImage retain];
+
+    //
+    //*********** End first image context and begin a new one ***************//
+    //
+    
+    // Now crop
+    //create a context to do our clipping
+    UIGraphicsBeginImageContext(croppedSize);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    
+    // Create a rect with the size we want to crop the image to
+    // The X and Y here are zero so we start at the beginning of our newly created context
+    CGRect clippedRect = CGRectMake(0, 0, croppedSize.width, croppedSize.height);
+    CGContextClipToRect( currentContext, clippedRect);
+    
+    // We will only be offsetting one dimension. Scaling took care of the other dimension
+    x = 0.0;
+    y = 0.0;
+    if (cropHeight && bounds.size.height > croppedSize.height) {
+        y = (bounds.size.height - croppedSize.height) * 0.5;
+    }
+    else {
+        if (bounds.size.width > croppedSize.width) {
+            x = (bounds.size.width - croppedSize.width) * 0.5;
+        }
+    }
+    
+    // Create a rect equivalent to the full size of the image
+    // Offset the rect by the X and Y we want to start the crop from in order to cut off anything before them
+    CGRect drawRect = CGRectMake(x * -1, //rect.origin.x * -1,
+                                 y * -1, //rect.origin.y * -1,
+                                 scaledImage.size.width,
+                                 scaledImage.size.height);
+    
+    // Account for 1st quadrant drawing implemented by Quartz
+    CGContextTranslateCTM(currentContext, 0.0, drawRect.size.height);
+    CGContextScaleCTM(currentContext, 1.0, -1.0);
+    
+    //draw the image to our clipped context using our offset rect
+    CGContextDrawImage(currentContext, drawRect, scaledImage.CGImage);
+    
+    //pull the image from our cropped context
+    UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //pop the context to get back to the default
+    UIGraphicsEndImageContext();
+    
+    //Note: this is autoreleased
+    return [croppedImage retain];
 }
 
 - (void)dealloc {
